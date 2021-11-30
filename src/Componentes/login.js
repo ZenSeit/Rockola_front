@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FormUser from './RegisterUser';
 
 export default function Login() {
 
@@ -32,8 +33,8 @@ export default function Login() {
 
     }
     return (
-
-        
+<div className="col-4">
+        <div className="registro">
             <form>
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">@</span>
@@ -43,9 +44,10 @@ export default function Login() {
                     <input type="password" className="form-control" placeholder="Ingresa tu clave" aria-label="Recipient's username" aria-describedby="basic-addon2" value={password} onChange={(e) => setPass(e.target.value)} />
                     <span className="input-group-text" id="basic-addon2">Password</span>
                 </div>
-                <button type="button" className="btn btn-primary" onClick={EnviarDatos}>Ingresar</button>
+                <button type="button" className="btn btn-primary" onClick={EnviarDatos}>Ingresar</button>  
             </form>
-        
-
+            <div><FormUser/></div>   
+            </div>
+            </div>
     );
 }

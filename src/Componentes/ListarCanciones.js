@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Editcan from './EditCancion';
 import Formcan from './formcancion';
+import Delcan from './Delcancion';
 
 
 export default function ListarCanciones() {
@@ -22,7 +23,6 @@ export default function ListarCanciones() {
                 setCancion(result);
             })
     };
-
 
     useEffect(cargarCanciones, []);
 
@@ -65,7 +65,7 @@ export default function ListarCanciones() {
                                                     <td>{can.comentario}</td>
 
                                                     <td>{can.usercanr}</td>
-                                                    <td><Editcan cant={can}/> <button type="button" className="btn btn-danger">Eliminar</button></td>
+                                                    <td><Editcan cant={can}/><Delcan cant={can}/> </td>
 
                                                 </tr>
                                             )

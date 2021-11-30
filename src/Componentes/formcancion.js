@@ -18,23 +18,21 @@ export default function Formcan() {
         const newcan = { nom, autor, gen, enlace, comentario, usercanr }
         console.log(newcan)
         e.preventDefault();
-        await fetch("https://rockolamin.herokuapp.com/acan", {
-            method: "PUT",
+        await fetch("https://rockolamin.herokuapp.com/gcan", {
+            method: "POST",
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
             },
             body: JSON.stringify(newcan)
-        }).then(async (rest) => {
-            const resp = await rest.text()
-            if (resp !== "mal") {
-                alert("salio bien y se loguea");
+        }).then(function(response){
+            if(response.status===200){
+                alert("Se agregó tu cancion")
                 window.location.reload(false);
-            } else {
-                alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
-            }
-        }
-        );
+            }else{alert("La cancion no fue agregada")}
+            
+        });
 
     }
 

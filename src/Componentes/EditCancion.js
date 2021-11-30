@@ -4,7 +4,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input } 
 
 export default function Editcan(cant) {
 
-    // const [canci, setState] = useState([cant]);
 
     const string =Object.values(cant);
     const stringcan=Object.values(string[0])
@@ -37,16 +36,15 @@ export default function Editcan(cant) {
                 'Authorization': localStorage.token
             },
             body: JSON.stringify(editcan)
-        }).then(async (rest) => {
-            const resp = await rest.text()
-            if (resp !== "mal") {
-                alert("salio bien y se loguea");
+        }).then(function(response){
+            if(response.status===200){
+                alert("Cancion editada con exito")
                 window.location.reload(false);
-            } else {
-                alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
-            }
-        }
-        );
+            }else{alert("No se pudo editar la cancion")}
+            
+        });
+
+        
 
     }
 
