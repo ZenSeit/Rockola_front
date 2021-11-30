@@ -9,7 +9,6 @@ export default function Login() {
 
     const EnviarDatos = async (e) => {
         const Usuario = { nickname, password }
-        console.log(Usuario)
         e.preventDefault();
         await fetch("https://rockolamin.herokuapp.com/login", {
             method: "POST",
@@ -23,7 +22,7 @@ export default function Login() {
         if (resp !== "mal") {
             localStorage.token = resp;
             localStorage.nickname = Usuario.nickname;
-            alert("salio bien y se loguea");
+            alert("Has ingresado correctamente");
             window.location.reload(false);
           } else {
             alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
