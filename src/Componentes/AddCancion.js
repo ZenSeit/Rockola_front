@@ -14,7 +14,7 @@ export default function Cerrarsesion() {
 
     return(
         <>
-        <Button color="success" onClick={Cerrar}>Cerrar Sesion</Button>
+        <Button color="dark" onClick={Cerrar}>Cerrar Sesion</Button>
         </>
 
     );

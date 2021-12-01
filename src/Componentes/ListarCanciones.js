@@ -4,11 +4,12 @@ import Editcan from './EditCancion';
 import Formcan from './formcancion';
 import Delcan from './Delcancion';
 import Cerrarsesion from './AddCancion';
+import bannerrockola from './Imagenes/bannerrockola.png';
 
 
 export default function ListarCanciones() {
 
-    const [cancion, setCancion] = useState([])
+    const [cancion, setCancion] = useState([]);
 
     const cargarCanciones = () => {
         fetch("https://rockolamin.herokuapp.com/lcan", {
@@ -28,20 +29,21 @@ export default function ListarCanciones() {
     useEffect(cargarCanciones, []);
 
     return (
-        
-        
-        
-<div>
-    <div><Cerrarsesion/></div>
-            <div className="container-fluid">
+
+
+        <div>
+            
+            <div><img src={bannerrockola} className="img-fluid" alt="Responsive image"/></div>
+            
+            <div>
                 <div className="row">
                     <div className="col-10">
-                        
+
                         <h2 className="mb-3" id="nuestras"> Nuestras canciones disponibles </h2>
-                        
-                        <Formcan/>
-                        
-                        <div className="mb-3 border rounded p-3">
+
+                        <Formcan />
+
+                        <div className="tabladiv">
                             <div className="tcancion">
                                 <table className="table table-dark table-striped">
                                     <thead>
@@ -58,22 +60,22 @@ export default function ListarCanciones() {
                                     <tbody>
                                         {
                                             cancion.map(can =>
-                                                
+
                                                 <tr>
                                                     <td key={can.id}>{can.nom}</td>
                                                     <td>{can.autor}</td>
                                                     <td>{can.gen}</td>
-                                                    <td><a href={can.enlace}>Escuchar {can.nom}</a></td>
+                                                    <td><a href={can.enlace} target="_blank">Escuchar {can.nom}</a></td>
                                                     <td>{can.comentario}</td>
 
                                                     <td>{can.usercanr}</td>
-                                                    <td><Editcan cant={can}/><Delcan cant={can}/> </td>
+                                                    <td><Editcan cant={can} /><Delcan cant={can} /> </td>
 
                                                 </tr>
                                             )
-                                            
+
                                         }
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -81,9 +83,8 @@ export default function ListarCanciones() {
                     </div>
                 </div>
             </div>
-        
-            </div>
+            <div className="cerrar"><Cerrarsesion /></div>
+        </div>
+
     );
-
-
 }
