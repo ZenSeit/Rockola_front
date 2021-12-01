@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Editcan from './EditCancion';
 import Formcan from './formcancion';
 import Delcan from './Delcancion';
+import Cerrarsesion from './AddCancion';
 
 
 export default function ListarCanciones() {
@@ -30,7 +31,8 @@ export default function ListarCanciones() {
         
         
         
-
+<div>
+    <div><Cerrarsesion/></div>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-10">
@@ -80,7 +82,7 @@ export default function ListarCanciones() {
                 </div>
             </div>
         
-
+            </div>
     );
 
 
