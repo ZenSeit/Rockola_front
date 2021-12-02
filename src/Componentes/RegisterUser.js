@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Input } from 'reactstrap';
 
 export default function FormUser() {
 
@@ -15,20 +15,22 @@ export default function FormUser() {
     const EnviarUsuario = async (e) => {
         const newuser = { nickname, nombre, email, genero, password}
         e.preventDefault();
-        await fetch("https://rockolamin.herokuapp.com/registro", {
+        await fetch("http://localhost:8080/registro", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(newuser)
-        }).then(function(response){
-            if(response.status===200){
-                alert("Te has registrado con exito!")
-                window.location.reload(false);
-            }else{alert("Tu registro ha fallado")}
-            
-        });
+        }).then(async (rest) => {
+            const resp = await rest.text();
+            if (resp !== "rep") {
+                alert("Te has registrado correctamente");
+            } else {
+                alert("Elige un nickname diferente");
+            }
+        }
+        );
 
     }
 
@@ -58,7 +60,7 @@ export default function FormUser() {
                         <span className="input-group-text" id="basic-addon2">Nombre</span>
                     </div>
                     <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Ingresa tu email" aria-label="Recipient's username" aria-describedby="basic-addon2" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" className="form-control" placeholder="Ingresa tu email" aria-label="Recipient's username" aria-describedby="basic-addon2" value={email} onChange={(e) => setEmail(e.target.value)} />
                         <span className="input-group-text" id="basic-addon2">Email</span>
                     </div>
                     <div className="input-group mb-3">

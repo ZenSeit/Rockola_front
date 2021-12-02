@@ -18,7 +18,7 @@ export default function Formcan() {
         const newcan = { nom, autor, gen, enlace, comentario, usercanr }
         console.log(newcan)
         e.preventDefault();
-        await fetch("https://rockolamin.herokuapp.com/gcan", {
+        await fetch("http://localhost:8080/gcan", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
