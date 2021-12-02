@@ -28,7 +28,7 @@ export default function Editcan(cant) {
         const editcan = { id, nom, autor, gen, enlace, comentario, usercanr }
         console.log(editcan)
         e.preventDefault();
-        await fetch("http://localhost:8080/acan", {
+        await fetch("http://192.168.1.5:8080/acan", {
             method: "PUT",
             headers: {
                 'Accept': 'application/json',

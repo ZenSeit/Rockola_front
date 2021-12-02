@@ -11,7 +11,7 @@ export default function Login() {
     const EnviarDatos = async (e) => {
         const Usuario = { nickname, password }
         e.preventDefault();
-        await fetch("http://localhost:8080/login", {
+        await fetch("http://192.168.1.5:8080/login", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -20,7 +20,7 @@ export default function Login() {
             body: JSON.stringify(Usuario)
         }).then(async (rest) => {
             const resp = await rest.text()
-            console.log(resp)
+            console.log(resp);
             if (resp !== "mal") {
                 localStorage.token = resp;
                 localStorage.nickname = Usuario.nickname;

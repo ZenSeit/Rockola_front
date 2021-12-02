@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Input } from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 
 export default function FormUser() {
 
@@ -13,9 +14,9 @@ export default function FormUser() {
 
 
     const EnviarUsuario = async (e) => {
-        const newuser = { nickname, nombre, email, genero, password}
+        const newuser = { nickname, nombre, email, genero, password }
         e.preventDefault();
-        await fetch("http://localhost:8080/registro", {
+        await fetch("http://192.168.1.5:8080/registro", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -26,6 +27,7 @@ export default function FormUser() {
             const resp = await rest.text();
             if (resp !== "rep") {
                 alert("Te has registrado correctamente");
+                setMod(false);
             } else {
                 alert("Elige un nickname diferente");
             }
@@ -51,27 +53,38 @@ export default function FormUser() {
 
                 </ModalHeader>
                 <ModalBody>
+                    <div>
+                        <AvForm onValidSubmit={EnviarUsuario}>
+                            <AvField name="nickname" label="Nickname" placeholder="Escribe tu Nickname" value={nickname} onChange={(e) => setNick(e.target.value)} type="text" required validate={{
+                                required: { value: true, errorMessage: 'Ingresa tu Nickname' },
+                                pattern: { value: '^[A-Za-z0-9]+$', errorMessage: 'Tu nickname solo puede contener letras y numeros' },
+                                minLength: { value: 2, errorMessage: 'Tu nickname debe contener entre 2 y 15 caracteres' },
+                                maxLength: { value: 15, errorMessage: 'Tu nickname debe contener entre 2 y 15 caracteres' }
+                            }} />
+                            <AvField name="nombre" label="Nombre" placeholder="Escribe tu nombre" value={nombre} onChange={(e) => setNom(e.target.value)} type="text" validate={{
+                                required: { value: true, errorMessage: 'Ingresa tu nombre' },
+                                pattern: { value: '^[a-zA-Z0-9_ ]*$', errorMessage: 'Tu nombre solo puede contener letras' },
+                                minLength: { value: 2, errorMessage: 'Tu nombre debe contener al menos 2 caracteres' },
+                                maxLength: { value: 40, errorMessage: 'Nombre demasiado largo' }
+                            }} />
+                            <AvField name="email" label="@email" placeholder="Escribe tu email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" validate={{
+                                required: { value: true, errorMessage: 'Ingresa tu email' }
+                            }} />
+                            <AvField type="select" name="genero" label="Genero" value={genero} onChange={(e) => setGen(e.target.value)} required>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                                <option>No Binario</option>
+                            </AvField>
+                            <AvField name="password" label="Contraseña" placeholder="Escribe una contraseña" value={password} onChange={(e) => setPass(e.target.value)} type="text" validate={{
+                                required: { value: true, errorMessage: 'Ingresa una contraseña' },
+                                pattern: { value: '^[A-Za-z0-9]+$', errorMessage: 'Tu contraseña solo puede contener letras y numeros' },
+                                minLength: { value: 4, errorMessage: 'Tu contraseña debe contener entre 4 y 15 caracteres' },
+                                maxLength: { value: 15, errorMessage: 'Contraseña demasiada larga' }}}/>
 
-                    <div className="input-group mb-3">
-                        <Input type="text" className="form-control" placeholder="Escribe tu Nickname" aria-label="Nickname" aria-describedby="basic-addon1" value={nickname} onChange={(e) => setNick(e.target.value)} />
+                            <Button color="primary">Submit</Button>
+                        </AvForm>
                     </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Ingresa tu nombre" aria-label="Recipient's username" aria-describedby="basic-addon2" value={nombre} onChange={(e) => setNom(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Nombre</span>
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="email" className="form-control" placeholder="Ingresa tu email" aria-label="Recipient's username" aria-describedby="basic-addon2" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Email</span>
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Cual es tu genero?" aria-label="Recipient's username" aria-describedby="basic-addon2" value={genero} onChange={(e) => setGen(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Genero</span>
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Escribe una contraseña" aria-label="Recipient's username" aria-describedby="basic-addon2" value={password} onChange={(e) => setPass(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Contraseña</span>
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={EnviarUsuario}>Registrarse!</button>
+
                 </ModalBody>
             </Modal>
 

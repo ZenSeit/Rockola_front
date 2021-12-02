@@ -18,7 +18,7 @@ export default function Formcan() {
         const newcan = { nom, autor, gen, enlace, comentario, usercanr }
         console.log(newcan)
         e.preventDefault();
-        await fetch("http://localhost:8080/gcan", {
+        await fetch("http://192.168.1.5:8080/gcan", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

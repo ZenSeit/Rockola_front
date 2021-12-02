@@ -12,7 +12,7 @@ export default function ListarCanciones() {
     const [cancion, setCancion] = useState([]);
 
     const cargarCanciones = () => {
-        fetch("http://localhost:8080/lcan", {
+        fetch("http://192.168.1.5:8080/lcan", {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
