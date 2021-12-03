@@ -16,7 +16,7 @@ export default function FormUser() {
     const EnviarUsuario = async (e) => {
         const newuser = { nickname, nombre, email, genero, password }
         e.preventDefault();
-        await fetch("http://192.168.1.5:8080/registro", {
+        await fetch("https://rockolamin.herokuapp.com/registro", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

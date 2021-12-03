@@ -10,7 +10,7 @@ export default function Delcan(can) {
 
     const EliminarCan =()=> {
         const id=stringcan[0];
-        fetch("http://192.168.1.5:8080/dcan/"+id, {
+        fetch("https://rockolamin.herokuapp.com/dcan/"+id, {
             method: 'delete',
             headers: {
                 'Accept': 'application/json',

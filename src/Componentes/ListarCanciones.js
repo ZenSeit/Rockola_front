@@ -12,7 +12,7 @@ export default function ListarCanciones() {
     const [cancion, setCancion] = useState([]);
 
     const cargarCanciones = () => {
-        fetch("http://192.168.1.5:8080/lcan", {
+        fetch("https://rockolamin.herokuapp.com/lcan", {
             method: 'get',
             headers: {
                 'Accept': 'application/json',

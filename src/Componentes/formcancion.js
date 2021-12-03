@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input } from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 
 export default function Formcan() {
 
@@ -18,7 +19,7 @@ export default function Formcan() {
         const newcan = { nom, autor, gen, enlace, comentario, usercanr }
         console.log(newcan)
         e.preventDefault();
-        await fetch("http://192.168.1.5:8080/gcan", {
+        await fetch("https://rockolamin.herokuapp.com/gcan", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -31,7 +32,7 @@ export default function Formcan() {
                 alert("Se agregó tu cancion")
                 window.location.reload(false);
             }else{alert("La cancion no fue agregada")}
-            
+
         });
 
     }
@@ -53,27 +54,48 @@ export default function Formcan() {
 
                 </ModalHeader>
                 <ModalBody>
+                    <AvForm onValidSubmit={Enviarcancion}>
+                        <AvField name="cancion" label="Nombre cancion" placeholder="Escribe el nombre de la cancion" value={nom} onChange={(e) => setNomcan(e.target.value)} type="text" required validate={{
+                            required: { value: true, errorMessage: 'Ingresa el nombre de la cancion' },
+                            minLength: { value: 1, errorMessage: 'El nombre de la cancion debe contener entre 1 y 30 caracteres' },
+                            maxLength: { value: 30, errorMessage: 'El nombre de la cancion debe contener entre 1 y 30 caracteres' }
+                        }} />
+                        <AvField name="autor" label="Artista" placeholder="Ingresa el artista" value={autor} onChange={(e) => setArtcan(e.target.value)} type="text" validate={{
+                            required: { value: true, errorMessage: 'Artista' },
+                            pattern: { value: '^[a-zA-Z0-9_ ]*$', errorMessage: 'El artista solo puede contener letras y numeros' },
+                            minLength: { value: 2, errorMessage: 'Tu nombre debe contener al menos 2 caracteres' },
+                            maxLength: { value: 40, errorMessage: 'Nombre demasiado largo' }
+                        }} />
+                        <AvField type="select" name="genero" label="Genero de la cancion" value={gen} onChange={(e) => setGen(e.target.value)} required>
+                            <option value="" selected disabled hidden>Selecciona un genero</option>
+                            <option>Reggae</option>
+                            <option>Rock</option>
+                            <option>Balada</option>
+                            <option>Bachata</option>
+                            <option>Salsa</option>
+                            <option>Reggaeton</option>
+                            <option>House</option>
+                            <option>Metal</option>
+                            <option>Merengue</option>
+                            <option>Ranchera</option>
+                            <option>Vallenato</option>
+                            <option>R&B</option>
+                            <option>POP</option>
+                            <option>Carranga</option>
+                            <option>Electronica</option>
+                            <option>Rock en español</option>
+                            <option>Rap</option>
+                            <option>Jazz</option>
+                        </AvField>
+                        <AvField name="enlace" label="Enlace YT" placeholder="Ingresa el enlace de la cancion" value={enlace} onChange={(e) => setEnla(e.target.value)} type="text" validate={{
+                            required: { value: true, errorMessage: 'Ingresa el enlace' },
+                            pattern: { value: '(https?://)?(www\\.)?(yotu\\.be/|youtube\\.com/)?((.+/)?(watch(\\?v=|.+&v=))?(v=)?)([\\w_-]{11})(&.+)?', errorMessage: 'Ingresa un enlace de youtube' }
+                        }} />
+                        <AvField name="comment" label="Comentario" placeholder="Puedes escribir algun comentario" value={comentario} onChange={(e) => setComen(e.target.value)} type="text" />
 
-                    <div className="input-group mb-3">
-                        <Input type="text" className="form-control" placeholder="Nombre cancion" aria-label="Username" aria-describedby="basic-addon1" value={nom} onChange={(e) => setNomcan(e.target.value)} />
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Ingresa nombre del artista" aria-label="Recipient's username" aria-describedby="basic-addon2" value={autor} onChange={(e) => setArtcan(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Artista</span>
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Ingresa el genero de la cancion" aria-label="Recipient's username" aria-describedby="basic-addon2" value={gen} onChange={(e) => setGen(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Genero</span>
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Ingresa el enlace de Youtube" aria-label="Recipient's username" aria-describedby="basic-addon2" value={enlace} onChange={(e) => setEnla(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Enlace</span>
-                    </div>
-                    <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Si tienes algun comentario lo puedes escribir" aria-label="Recipient's username" aria-describedby="basic-addon2" value={comentario} onChange={(e) => setComen(e.target.value)} />
-                        <span className="input-group-text" id="basic-addon2">Comentario</span>
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={Enviarcancion}>Añadir</button>
+                        <Button color="primary">Submit</Button>
+                    </AvForm>
+
                 </ModalBody>
             </Modal>
 

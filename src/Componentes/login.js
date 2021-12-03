@@ -11,7 +11,7 @@ export default function Login() {
     const EnviarDatos = async (e) => {
         const Usuario = { nickname, password }
         e.preventDefault();
-        await fetch("http://192.168.1.5:8080/login", {
+        await fetch("https://rockolamin.herokuapp.com/login", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
