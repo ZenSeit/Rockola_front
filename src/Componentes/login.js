@@ -47,12 +47,12 @@ export default function Login() {
                             <input type="password" className="form-control" placeholder="Ingresa tu clave" aria-label="Recipient's username" aria-describedby="basic-addon2" value={password} onChange={(e) => setPass(e.target.value)} />
                             <span className="input-group-text" id="basic-addon2">Password</span>
                         </div>
-                        <button type="button" className="btn btn-primary" onClick={EnviarDatos}>Ingresar</button>
+                        <button type="button" className="btn btn-danger" onClick={EnviarDatos}>Ingresar</button>
                     </form>
                     
                 </div>
             </div>
-            <div><FormUser /></div>
+            <div className="registro"><FormUser /></div>
         </div>
     );
 }
