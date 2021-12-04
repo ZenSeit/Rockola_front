@@ -108,7 +108,7 @@ export default function Editcan(cant) {
                         }} />
                         <AvField name="comment" label="Comentario" placeholder="Puedes escribir algun comentario" value={comentario} onChange={(e) => setComen(e.target.value)} type="text" />
 
-                        <Button color="primary">Submit</Button>
+                        <Button color="primary">Editar</Button>
                     </AvForm>
                 </ModalBody>
             </Modal>

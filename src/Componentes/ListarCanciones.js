@@ -11,6 +11,7 @@ export default function ListarCanciones() {
     const [cancion, setCancion] = useState([]);
     const [generocan, setgencan] = useState('');
     const [generosel, setgensel] = useState([]);
+    
 
     const cargargen = () => {
         fetch("https://rockolamin.herokuapp.com/lgen", {
@@ -25,25 +26,7 @@ export default function ListarCanciones() {
             ) => {
                 setgensel(result);
             })
-    };
-    
-
-    const cargarporgenero =()=>{
-        if(!generocan==''){
-            fetch("https://rockolamin.herokuapp.com/lgcan/"+generocan, {
-            method: 'get',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            }
-        }).then(res => res.json())
-            .then((result
-            ) => {
-                setCancion(result);
-            })
-
-        }
+            
 
     };
 
@@ -61,6 +44,30 @@ export default function ListarCanciones() {
                 setCancion(result);
             })
     };
+
+    const cargarporgenero =()=>{
+        if(!generocan==''){
+            fetch("https://rockolamin.herokuapp.com/lgcan/"+generocan, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            }
+        }).then(res => res.json())
+            .then((result
+            ) => {
+                setCancion(result);
+                if(result.length==0){
+                    alert("No contamos con canciones de este genero aun.")
+                    window.location.reload(false);
+                }
+            })
+        }
+    };
+
+
+    
 
     useEffect(cargarCanciones, []);
     useEffect(cargargen, []);

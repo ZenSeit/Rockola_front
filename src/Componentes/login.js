@@ -20,7 +20,6 @@ export default function Login() {
             body: JSON.stringify(Usuario)
         }).then(async (rest) => {
             const resp = await rest.text()
-            console.log(resp);
             if (resp !== "mal") {
                 localStorage.token = resp;
                 localStorage.nickname = Usuario.nickname;
