@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Rockola_front/static/css/main.789bef60.chunk.css",
-    "main.js": "/Rockola_front/static/js/main.2af32181.chunk.js",
-    "main.js.map": "/Rockola_front/static/js/main.2af32181.chunk.js.map",
+    "main.js": "/Rockola_front/static/js/main.93780104.chunk.js",
+    "main.js.map": "/Rockola_front/static/js/main.93780104.chunk.js.map",
     "runtime-main.js": "/Rockola_front/static/js/runtime-main.6d688067.js",
     "runtime-main.js.map": "/Rockola_front/static/js/runtime-main.6d688067.js.map",
     "static/css/2.383c0125.chunk.css": "/Rockola_front/static/css/2.383c0125.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.383c0125.chunk.css",
     "static/js/2.2db14238.chunk.js",
     "static/css/main.789bef60.chunk.css",
-    "static/js/main.2af32181.chunk.js"
+    "static/js/main.93780104.chunk.js"
   ]
 }
