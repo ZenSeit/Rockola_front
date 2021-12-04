@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input } from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 
@@ -13,6 +13,23 @@ export default function Formcan() {
     const [mod, setMod] = useState(false);
     const cambio = () => setMod(!mod);
 
+
+    const [generosel, setgensel] = useState([]);
+
+    const cargargen = () => {
+        fetch("https://rockolamin.herokuapp.com/lgen", {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            }
+        }).then(res => res.json())
+            .then((result
+            ) => {
+                setgensel(result);
+            })
+    };
 
     const Enviarcancion = async (e) => {
         setUser(localStorage.nickname);
@@ -36,6 +53,8 @@ export default function Formcan() {
         });
 
     }
+
+    useEffect(cargargen, []);
 
     return (
         <>
@@ -68,24 +87,11 @@ export default function Formcan() {
                         }} />
                         <AvField type="select" name="genero" label="Genero de la cancion" value={gen} onChange={(e) => setGen(e.target.value)} required>
                             <option value="" selected disabled hidden>Selecciona un genero</option>
-                            <option>Reggae</option>
-                            <option>Rock</option>
-                            <option>Balada</option>
-                            <option>Bachata</option>
-                            <option>Salsa</option>
-                            <option>Reggaeton</option>
-                            <option>House</option>
-                            <option>Metal</option>
-                            <option>Merengue</option>
-                            <option>Ranchera</option>
-                            <option>Vallenato</option>
-                            <option>R&B</option>
-                            <option>POP</option>
-                            <option>Carranga</option>
-                            <option>Electronica</option>
-                            <option>Rock en español</option>
-                            <option>Rap</option>
-                            <option>Jazz</option>
+                            {
+                                generosel.map(gene=>
+                                    <option>{gene.genmu}</option>
+                                    )
+                            }
                         </AvField>
                         <AvField name="enlace" label="Enlace YT" placeholder="Ingresa el enlace de la cancion" value={enlace} onChange={(e) => setEnla(e.target.value)} type="text" validate={{
                             required: { value: true, errorMessage: 'Ingresa el enlace' },

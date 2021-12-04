@@ -6,13 +6,49 @@ import Delcan from './Delcancion';
 import Cerrarsesion from './AddCancion';
 import bannerrockola from './Imagenes/bannerrockola.png';
 
-
 export default function ListarCanciones() {
 
     const [cancion, setCancion] = useState([]);
+    const [generocan, setgencan] = useState('');
+    const [generosel, setgensel] = useState([]);
+
+    const cargargen = () => {
+        fetch("https://rockolamin.herokuapp.com/lgen", {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            }
+        }).then(res => res.json())
+            .then((result
+            ) => {
+                setgensel(result);
+            })
+    };
+    
+
+    const cargarporgenero =()=>{
+        if(!generocan==''){
+            fetch("http://localhost:8080/lgcan/"+generocan, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token
+            }
+        }).then(res => res.json())
+            .then((result
+            ) => {
+                setCancion(result);
+            })
+
+        }
+
+    };
 
     const cargarCanciones = () => {
-        fetch("https://rockolamin.herokuapp.com/lcan", {
+        fetch("http://localhost:8080/lcan", {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
@@ -27,6 +63,7 @@ export default function ListarCanciones() {
     };
 
     useEffect(cargarCanciones, []);
+    useEffect(cargargen, []);
 
     return (
 
@@ -40,6 +77,19 @@ export default function ListarCanciones() {
                     <div className="col-10">
 
                         <h2 className="mb-3" id="nuestras"> Nuestras canciones disponibles </h2>
+
+                        <div>
+                        <select type="select" name="genero" label="Genero de la cancion" value={generocan} onChange={(e)=>setgencan(e.target.value)}>
+                            <option value="" selected disabled hidden>Selecciona un genero</option>
+                            {
+                                generosel.map(gene=>
+                                    <option>{gene.genmu}</option>
+                                    )
+                            }
+                        </select>
+                        <button className="btn btn-secondary" onClick={cargarporgenero}>Filtrar</button>
+                        </div>
+
 
                         <Formcan />
 

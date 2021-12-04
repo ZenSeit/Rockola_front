@@ -81,7 +81,7 @@ export default function FormUser() {
                                 minLength: { value: 4, errorMessage: 'Tu contraseña debe contener entre 4 y 15 caracteres' },
                                 maxLength: { value: 15, errorMessage: 'Contraseña demasiada larga' }}}/>
 
-                            <Button color="primary">Submit</Button>
+                            <Button color="primary">Registrarse</Button>
                         </AvForm>
                     </div>
 
