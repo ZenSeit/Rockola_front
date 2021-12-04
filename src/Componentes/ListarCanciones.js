@@ -30,7 +30,7 @@ export default function ListarCanciones() {
 
     const cargarporgenero =()=>{
         if(!generocan==''){
-            fetch("http://localhost:8080/lgcan/"+generocan, {
+            fetch("https://rockolamin.herokuapp.com/lgcan/"+generocan, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
@@ -48,7 +48,7 @@ export default function ListarCanciones() {
     };
 
     const cargarCanciones = () => {
-        fetch("http://localhost:8080/lcan", {
+        fetch("https://rockolamin.herokuapp.com/lcan", {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
