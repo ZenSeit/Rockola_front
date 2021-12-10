@@ -11,7 +11,11 @@ export default function ListarCanciones() {
     const [cancion, setCancion] = useState([]);
     const [generocan, setgencan] = useState('');
     const [generosel, setgensel] = useState([]);
-    
+
+    function generateRandom(max) {
+        return Math.floor(Math.random() * (max))
+    }
+    var set1 = new Set();
 
     const cargargen = () => {
         fetch("https://rockolamin.herokuapp.com/lgen", {
@@ -26,8 +30,6 @@ export default function ListarCanciones() {
             ) => {
                 setgensel(result);
             })
-            
-
     };
 
     const cargarCanciones = () => {
@@ -41,33 +43,42 @@ export default function ListarCanciones() {
         }).then(res => res.json())
             .then((result
             ) => {
-                setCancion(result);
+                
+                var listale = [];
+                var i = 0;
+                do {
+                    set1.add(generateRandom(result.length));
+                    i++;
+                }
+                while (i < 5);
+                for (var i = 0; i < set1.size; i++) {
+                    listale.push(result[Array.from(set1)[i]]);
+                }
+                setCancion(listale);
             })
     };
 
-    const cargarporgenero =()=>{
-        if(!generocan==''){
-            fetch("https://rockolamin.herokuapp.com/lgcan/"+generocan, {
-            method: 'get',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            }
-        }).then(res => res.json())
-            .then((result
-            ) => {
-                setCancion(result);
-                if(result.length==0){
-                    alert("No contamos con canciones de este genero aun.")
-                    window.location.reload(false);
+    const cargarporgenero = () => {
+        if (!generocan == '') {
+            fetch("https://rockolamin.herokuapp.com/lgcan/" + generocan, {
+                method: 'get',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.token
                 }
-            })
+            }).then(res => res.json())
+                .then((result
+                ) => {
+                    setCancion(result);
+                    if (result.length == 0) {
+                        alert("No contamos con canciones de este genero aun.")
+                        window.location.reload(false);
+                    }
+                })
         }
     };
 
-
-    
 
     useEffect(cargarCanciones, []);
     useEffect(cargargen, []);
@@ -76,9 +87,9 @@ export default function ListarCanciones() {
 
 
         <div>
-            
-            <div><img src={bannerrockola} className="img-fluid" alt="Responsive image"/></div>
-            
+
+            <div><img src={bannerrockola} className="img-fluid" alt="Responsive image" /></div>
+
             <div>
                 <div className="row">
                     <div className="col-10">
@@ -86,15 +97,15 @@ export default function ListarCanciones() {
                         <h2 className="mb-3" id="nuestras"> Nuestras canciones disponibles </h2>
 
                         <div>
-                        <select type="select" name="genero" label="Genero de la cancion" value={generocan} onChange={(e)=>setgencan(e.target.value)}>
-                            <option value="" selected disabled hidden>Selecciona un genero</option>
-                            {
-                                generosel.map(gene=>
-                                    <option>{gene.genmu}</option>
+                            <select type="select" name="genero" label="Genero de la cancion" value={generocan} onChange={(e) => setgencan(e.target.value)}>
+                                <option value="" selected disabled hidden>Selecciona un genero</option>
+                                {
+                                    generosel.map(gene =>
+                                        <option>{gene.genmu}</option>
                                     )
-                            }
-                        </select>
-                        <button className="btn btn-secondary" onClick={cargarporgenero}>Filtrar</button>
+                                }
+                            </select>
+                            <button className="btn btn-secondary" onClick={cargarporgenero}>Filtrar</button>
                         </div>
 
 
